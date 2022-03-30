@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.9.22)  27 MAR 2022 23:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.3.29)  30 MAR 2022 13:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1113,15 +1113,11 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 399.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 399.
 Package rerunfilecheck Info: File `turing_ode.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
  20270 strings out of 483080
  381266 string characters out of 5963339
- 640328 words of memory out of 5000000
+ 639252 words of memory out of 5000000
  34739 multiletter control sequences out of 15000+600000
  547824 words of font info for 82 fonts, out of 8000000 for 9000
  62 hyphenation exceptions out of 8191
@@ -1142,7 +1138,7 @@ sy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb>
-Output written on turing_ode.pdf (31 pages, 1361200 bytes).
+Output written on turing_ode.pdf (31 pages, 1360563 bytes).
 PDF statistics:
  1037 PDF objects out of 1200 (max. 8388607)
  924 compressed objects within 10 object streams
