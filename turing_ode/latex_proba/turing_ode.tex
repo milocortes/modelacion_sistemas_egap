@@ -7,6 +7,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{subfig}
+\usepackage{natbib}
 
 %%%%% Color institucional
 \definecolor{MyBackground}{rgb}{1.0000,0.9451,0.6549}
@@ -22,10 +23,78 @@
 \setbeamercolor{title}{fg=white,bg=itesm}
 \setbeamercolor{caption name}{fg=itesm}
 \setbeamercolor*{item}{fg=itesm}
+
 \usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks,
+  citecolor=lnppdos,
+  urlcolor=blue}
+
+\newtheorem{recetabayesiana}{\textit{La única receta de la inferencia bayesiana...}}
+
+
+%%%%%% ---------------------------------------------
+%%%%%% PARA EL ALGORITMO
+%%%%%% -----------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Para agregar el algoritmo
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+%\usepackage{algorithm2e}
+\usepackage{algorithmic}
+
+\usepackage{multicol}
+\SetKwInput{KwInput}{Input}                % Set the Input
+\SetKwInput{KwOutput}{Output}              % set the Output
+
+% Para eliminar la numeración del algoritmo
+%\makeatletter
+%\newcommand{\RemoveAlgoNumber}{\renewcommand{\fnum@algocf}{\AlCapSty{\AlCapFnt\algorithmcfname}}}
+%\newcommand{\RevertAlgoNumber}{\algocf@resetfnum}
+%\makeatother
+% Para comentarios azulitos
+\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
+\SetCommentSty{mycommfont}
+% Para el do n times
+\SetKwFor{RepTimes}{do}{times}{end}
+% Para no poner numeración en una línea en específico
+\let\oldnl\nl% Store \nl in \oldnl
+\newcommand{\nonl}{\renewcommand{\nl}{\let\nl\oldnl}}% Remove line number for one line
+% Para poner una línea horizontal divisoria en el algoritmo
+\newcommand{\hrulealg}[0]{\vspace{2mm} \hrule \vspace{2mm}}
+% Para el loop forever
+ \SetKwBlock{Loop}{LoopForever}{EndLoop}
+% Para el switch case
+\newcommand{\SWITCH}[1]{\STATE \textbf{switch} (#1)}
+\newcommand{\ENDSWITCH}{\STATE \textbf{end switch}}
+\newcommand{\CASE}[1]{\STATE \textbf{case} #1\textbf{:} \begin{ALC@g}}
+\newcommand{\ENDCASE}{\end{ALC@g}}
+\newcommand{\CASELINE}[1]{\STATE \textbf{case} #1\textbf{:} }
+\newcommand{\DEFAULT}{\STATE \textbf{default:} \begin{ALC@g}}
+\newcommand{\ENDDEFAULT}{\end{ALC@g}}
+\newcommand{\DEFAULTLINE}[1]{\STATE \textbf{default:} }
+
+%% Para identar el procedimiento
+\newlength\myindent
+\setlength\myindent{2em}
+\newcommand\bindent{%
+  \begingroup
+  \setlength{\itemindent}{\myindent}
+  \addtolength{\algorithmicindent}{\myindent}
+}
+\newcommand\eindent{\endgroup}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%
+<<<<<<< HEAD
+\title[]{Programación probabilística y problemas inversos en ecuaciones diferenciales ordinarias}
+=======
 \title[Clase]{Programación probabilística y problemas inversos en ecuaciones diferenciales ordinarias}
+>>>>>>> 596a0eaa24d742c54afa29986847555295bdf3f0
 \institute[EGTP]{Simulación de sistemas \\ Escuela de Gobierno y Transformación Pública, ITESM} 
 \date{\today} 
 \subject{Resultados} 
@@ -120,6 +189,13 @@ financial networks. Sci. Rep. 5, 15758 (2015).}
 	\end{figure}
 \end{frame}
 
+\begin{frame}{Julia}
+	\begin{figure}
+		\includegraphics[scale=0.3]{images/julia}
+	\end{figure}
+\end{frame}
+
+
 \begin{frame}{¿Por qué otro lenguaje de alto nivel?}
 
 
@@ -137,7 +213,7 @@ financial networks. Sci. Rep. 5, 15758 (2015).}
 \begin{column}{0.5\textwidth}  %%<--- here
 	{\center \textbf{Características novedosas}}
 	\begin{itemize}
-		\item Buen perfomance: tiempo de ejecución rápido.
+		\item Buen perfomance: tiempo de ejecución rápido (\href{https://www.youtube.com/watch?v=uecdcADM3hY&t=205s}{\scriptsize Celeste.jl : Cataloging the Visible Universe Through Bayesian Inference at Petascale in Julia}). 
 		\item Compilación JIT (Just in Time) a nivel de función.
 		\item En un porcentaje alto, Julia está escrito en Julia. 
 		\item Metaprogramación (macros).
@@ -147,6 +223,12 @@ financial networks. Sci. Rep. 5, 15758 (2015).}
 
 \end{frame}
 
+\begin{frame}
+	\begin{figure}
+		\includegraphics[scale=0.17]{images/raz_julia}
+		\caption{\url{https://www.youtube.com/watch?v=KVnj4xuktpw&t=10s}}
+	\end{figure}
+\end{frame}
 
 
 \begin{frame}{Ecuaciones diferenciales ordinarias\footnote{Tomado de las notas de Ben Lampert sobre inferencia bayesiana \url{https://ben-lambert.com/bayesian-short-course/}}}
@@ -202,13 +284,13 @@ Superposición de distribución de muestreo que representa el error de medición
 \end{frame}
 
 \begin{frame}
-Dado que estamos usando la distribución normal,
+%Dado que estamos usando la distribución normal,
 
-\[N^*(t) \sim \text{normal}(N(t),\sigma)\]
+%\[N^*(t) \sim \text{normal}(N(t),\sigma)\]
 
-la verosimilitud de las observaciones es
+%la verosimilitud de las observaciones es
 
-\[L(N(t),\sigma) = \prod_{t=t_1}^T  \dfrac{1}{\sqrt{2\pi\sigma^2}} \exp{\Big[  \dfrac{-(N^*(t)-N(t))^2}{2\sigma^2}\Big]}\]
+%\[L(N(t),\sigma) = \prod_{t=t_1}^T  \dfrac{1}{\sqrt{2\pi\sigma^2}} \exp{\Big[  \dfrac{-(N^*(t)-N(t))^2}{2\sigma^2}\Big]}\]
 
 \begin{center}
 	\textbf{¿Cómo calculamos $N(t)$?}
@@ -229,6 +311,43 @@ Cualquier solución de $N(t)$ -exacta o numérica- depende de los parámetros de
 \end{center}
 
 \end{frame}
+
+\begin{frame}
+
+Cualquier solución de $N(t)$ -exacta o numérica- depende de los parámetros del modelo de ODE. En este caso,
+
+\[N(t) = f(t,\alpha,\beta)\]
+
+\begin{center}
+	\textbf{¿Cómo integramos los datos observados para estimar estos parámetros?}
+\end{center}
+
+\begin{center}
+{\color{red}\huge Inferencia Bayesiana}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+
+Cualquier solución de $N(t)$ -exacta o numérica- depende de los parámetros del modelo de ODE. En este caso,
+
+\[N(t) = f(t,\alpha,\beta)\]
+
+\begin{center}
+	\textbf{¿Cómo integramos los datos observados para estimar estos parámetros?}
+\end{center}
+
+\begin{center}
+{\color{red}\huge Inferencia Bayesiana}
+\end{center}
+
+\begin{recetabayesiana}
+consiste en encontrar la distribución condicional de todas aquellas cantidades de interés cuyo valor desconocemos dado el valor conocido de las variables observadas.
+\end{recetabayesiana}
+\end{frame}
+
+
 
 \begin{frame}{Inferencia bayesiana}
 	\begin{itemize}
@@ -254,12 +373,404 @@ Cualquier solución de $N(t)$ -exacta o numérica- depende de los parámetros de
 	\begin{itemize}
 		\item En el contexto de nuestro problema,
 		\begin{itemize}
-			\item $p(\theta)$ puede como la distribución inicial de los parámetros del modelo de ODE, 
+			\item $p(\theta)$ representa la distribución inicial de los parámetros del modelo de ODE, 
 			\item $p(y|\theta)$ (el modelo muestral o distribución de verosimilitud) representa el modelo de ODE. 
 		\end{itemize}	
 		
 		\item Podemos utilizar las técnicas de MCMC para construir la distribución $p(\theta|y)$, de los parámetros del modelo de ODE.  
 	\end{itemize}
+\end{frame}
+
+
+<<<<<<< HEAD
+\begin{frame}{Método de Monte Carlo}\small
+
+	\begin{center}
+		\textbf{Idea}: Método para calcular el área bajo una curva. Es una solución estadística al problema de integración.
+	\end{center}
+
+Supongamos que existe $M > 0$ tal que $0 \leq f(\theta) \leq M$ para todo $ \theta \in [a,b]$ y que queremos calcular la integral 
+
+	\begin{equation}
+		I = \int_a^b f(\theta) d\theta
+	\end{equation}
+
+el valor de la integral es el área bajo la curva $ \phi = f(\theta)$ para $ \theta \in [a,b]$. Dicha gráfica queda inscrita en el rectángulo $R =  [a,b] \times [0,M]$.
+
+=======
+	\begin{itemize}
+		\item Programación probabilística de propósito general con una interfaz de modelado intuitiva;
+		\item Muestreo de Monte Carlo hamiltoniano (HMC) robusto y eficiente para distribuciones posteriores diferenciables;
+		\item 
+Muestreo de partículas MCMC para distribuciones posteriores complejas que involucran variables discretas y flujo de control estocástico; e
+		\item 
+Inferencia composicional a través del muestreo de Gibbs que combina partículas MCMC, HMC y paseo aleatorio MH (RWMH).
+	\end{itemize}
+>>>>>>> 596a0eaa24d742c54afa29986847555295bdf3f0
+\end{frame}
+
+\begin{frame}{Método de Monte Carlo}\small
+
+Sea
+
+	\begin{equation}
+		p(\theta,\phi) =  \dfrac{1}{M(b-a)} I_R(\theta,\phi)
+	\end{equation}
+	
+Entonces $p(\theta,\phi)$ corresponde a la función de densidad de una distribución uniforme sobre el rectángulo $R$. La integral $I$ puede entonces estimarse simulando una muestra $(\theta_1,\phi_1),\dots,(\theta_N,\phi_N)$ de $p(\theta,\phi)$ y contando cuántos de estos valores caen bajo la curva $ \phi = f(\theta)$.	
+
+\vspace{0.5cm}
+El estimador $\hat{I}$ obtenido es un estimador insesgado de $I$.
+
+\vspace{0.5cm}
+La varianza del estimador es 
+
+\[Var(\hat{I}) = \dfrac{I}{N} \lbrace M(b-a) -I \rbrace\]
+\end{frame}
+
+
+\begin{frame}{Cálculo de $\pi$ por el método de Monte Carlo \citep{wilkinson1998}}\scriptsize
+
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+				\includegraphics[scale=0.5]{images/pi-monte-carlo.pdf}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+		\[\dfrac{\text{Área del círculo}}{\text{Área del cuadrado}} = \dfrac{\pi(1)^2}{4}=\dfrac{\pi}{4}\]
+		
+		que puede ser descrita por la integral
+		
+		\[\int_0^1 \sqrt{1-x^2} dx = \dfrac{\pi}{4}\]
+		
+		Para calcular $\pi$ se generan parejas aleatorias de números $(x_r,y_r)$, distribuidos uniformemente entre 0 y 1, y contamos cuántos de estos puntos caen dentro del círculo, esto es, si se cumple la igualdad 
+		
+		\[y_r^2 + x_r^2 \leq 1\]
+		\end{column}
+
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\includegraphics[scale=0.7]{images/pi_mc.pdf}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Cadenas de Markov}
+	
+	\begin{definition} \textbf{Cadena de Markov}. Proceso estocástico discreto con estados finitos que cumple la propiedad de Markov. 
+
+	\[P(X_{t+1} = s| X_1 = s_1, \dots ,X_t = s_t) = P(X_{t+1} = s |X_t = s_t) \]
+		
+	\end{definition}
+	
+\end{frame}
+
+\begin{frame}{Cadenas de Markov}
+
+			\begin{figure}
+				\includegraphics[scale=0.5]{images/estados.pdf}
+			\end{figure}	
+
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\vspace{-0.8cm}
+			\begin{figure}
+				\includegraphics[scale=0.5]{images/markov_uno.pdf}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			La arista representa la posibilidad que un pasajero que está en el dormitorio en el tiempo $t$ continúe en el dormitorio en el tiempo $t+1$.
+			
+			\vspace{0.5cm}
+			Se etiqueta con la probabilidad de que esto suceda (\textbf{Probabilidad de transición}) 
+			
+			\[P(X_{t+1}´ = d \mid X_t = d)=0.7\]
+
+		\end{column}
+
+	\end{columns}
+	
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\vspace{-0.8cm}
+			\begin{figure}
+				\includegraphics[scale=0.5]{images/markov_dos.pdf}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			
+		Arista para la transición del dormitorio al bar
+					\[P(X_{t+1}´ = b \mid X_t = d)=0.1\]
+		\end{column}
+
+	\end{columns}
+	
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\vspace{-0.8cm}
+			\begin{figure}
+				\includegraphics[scale=0.5]{images/markov_tres.pdf}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+		Arista para la transición del dormitorio al comedor
+					\[P(X_{t+1}´ = c \mid X_t = d)=0.2\]
+		\end{column}
+
+	\end{columns}
+	
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\vspace{-0.5cm}
+			\begin{figure}
+				\includegraphics[scale=0.5]{images/markov_cuatro.pdf}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			Agregamos todas las transiciones posibles y sus probabilidades.
+
+		\end{column}
+
+	\end{columns}
+	
+\end{frame}
+
+
+\begin{frame}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\vspace{-0.5cm}
+			\begin{figure}
+				\includegraphics[scale=0.5]{images/markov_cuatro.pdf}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			Las probabilidades de transición pueden representarse de manera matricial:
+			
+			\begin{equation}
+			T = \begin{bmatrix}
+			0.7 & 0.4 & 0.2\\
+			0.1 & 0.4 & 0.2\\
+			0.2 & 0.2 & 0.6
+			\end{bmatrix}
+			\end{equation}
+
+			con entradas
+			
+			\[p_{i,j} \equiv P(X_{t+1} = i \mid X_t =j)\]
+
+		\end{column}
+
+	\end{columns}
+	
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\vspace{-0.5cm}
+			\begin{figure}
+				\includegraphics[scale=0.5]{images/markov_cuatro.pdf}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			Matriz de probabilidad de estado:
+			
+			\begin{equation*}
+			T = \begin{bmatrix}
+			0.7 & 0.4 & 0.2\\
+			0.1 & 0.4 & 0.2\\
+			0.2 & 0.2 & 0.6
+			\end{bmatrix}
+			\end{equation*}
+
+			La dinámica para la distribución de probabilidad puede expresarse:
+			
+			\begin{equation}
+			\begin{bmatrix}
+			P(X_{t+1}  = d) \\
+			P(X_{t+1}  = b)\\
+			P(X_{t+1}  = c) 	
+			\end{bmatrix} = 
+			T \begin{bmatrix}
+			P(X_{t}  = d) \\
+			P(X_{t}  = b)\\
+			P(X_{t}  = c) 	
+			\end{bmatrix}
+			\end{equation}
+			
+			\begin{equation}
+			P(X_{t+1}) = TP(X_{t})
+			\end{equation}
+		\end{column}
+
+	\end{columns}
+	
+\end{frame}
+
+\begin{frame}\small
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\vspace{-0.5cm}
+			\begin{figure}
+				\includegraphics[scale=0.5]{images/markov_cuatro.pdf}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			Si sabemos que el pasajero se encuentra en el dormitorio al tiempo $t = 0$:
+			\[P(X_0)= \begin{bmatrix}
+						1 \\
+						0 \\
+						0
+					  \end{bmatrix}
+						=P_0\]
+			Al tiempo siguiente la distribución es:
+			
+			
+			\[P(X_1) = TP_0=P_1\]
+			
+			\[P(X_1) = \begin{bmatrix}
+			0.7 & 0.4 & 0.2\\
+			0.1 & 0.4 & 0.2\\
+			0.2 & 0.2 & 0.6
+			\end{bmatrix} \begin{bmatrix}
+						1 \\
+						0 \\
+						0
+					  \end{bmatrix}\]
+					  
+			\[P(X_1) = 					  
+			\begin{bmatrix}
+						0.7 \\
+						0.1 \\
+						0.2
+					  \end{bmatrix}		 \]
+		\end{column}
+
+	\end{columns}
+	
+\end{frame}
+
+
+
+\begin{frame}\small
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\vspace{-0.5cm}
+			\begin{figure}
+				\includegraphics[scale=0.5]{images/markov_cuatro.pdf}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			Para tiempos futuros
+			\[P(X_t) = TP(X_{t-1})\equiv P_t\]
+			
+			\[P1 = TP_0\]
+			\[P2 = TP_1\]
+			
+			\[\begin{bmatrix}
+			0.7 & 0.4 & 0.2\\
+			0.1 & 0.4 & 0.2\\
+			0.2 & 0.2 & 0.6
+			\end{bmatrix} \begin{bmatrix}
+						0.7 \\
+						0.2 \\
+						0.1
+					  \end{bmatrix}\]
+					  
+			\[= 					  
+			\begin{bmatrix}
+						0.57 \\
+						0.15 \\
+						0.28
+					  \end{bmatrix}		 \]
+					  
+			\[TTP_0=T^2P_0\]
+		\end{column}
+
+	\end{columns}
+	
+\end{frame}
+
+\begin{frame}\small
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\vspace{-0.5cm}
+			\begin{figure}
+				\includegraphics[scale=0.5]{images/markov_cuatro.pdf}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			Para tiempos futuros
+			\[P_t = T^tP_0\]
+
+		\end{column}
+
+	\end{columns}
+	
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Algoritmo de Metropolis \citep{THEODORIDIS20201}}
+
+\begin{itemize}
+	\item La distribución propuesta cambia con el tiempo siguiendo la evolución de una cadena de Markov.
+	\item La cadena se construye de manera que su matriz de transición tenga la distribución deseada $p(x)$ la cual es invariante. 
+	\item La distribución propuesta depende del valor del estado previo,$x_{n-1}$, esto es, $q(\cdot|x_{n-1}) $.
+	\item Es decir, generar una nueva muestra (un nuevo estado) depende del valor del estado previo.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\scriptsize
+
+\begin{algorithm}[H]
+	\LinesNumberedHidden
+    \begin{algorithmic}
+	\STATE{Sea la distribución deseada $p(\cdot)$}
+	\STATE{Escoge una distribución de propuesta $q(\cdot|\cdot)$}
+	\STATE{Escoge el valor del estado inicial $x_0$}
+	\STATE{}
+	\FOR{$n = 1,2,\dots, N$ } 
+		\STATE{Toma un valor $x \sim q(\cdot | x_{n-1})$}
+		\STATE{Calcula el valor de aceptación}
+		\STATE{}
+		%\STATE{$\alpha (x|x_{n-1}) = \min \Big\lbrace 1,\dfrac{q(x_{n-1}|x)p(x)}{q(x|x_{n-1})p(x_{n-1})} \Big\rbrace$}
+			
+	\tcc{\scriptsize Si la probabilidad de $p(x)$ es más grande que la de $p(x_{n-1})$, entonces se acepta la nueva muestra. En caso contrario, esta es aceptada-rechazada en base a su valor relativo}
+		\STATE{$\alpha (x|x_{n-1}) = \min \Big\lbrace 1,\dfrac{p(x)}{p(x_{n-1})} \Big\rbrace$}
+		\STATE{}
+		\STATE{Escoge $u \sim U(0,1)$}
+		\STATE{}
+		\IF{$u \leq \alpha (x|x_{n-1})$}	
+			\STATE{$x_n = x$}
+		\ELSE
+			\STATE{$x_n = x_{n-1}$}
+		\ENDIF
+	 \ENDFOR
+	 	\STATE{}
+
+	\end{algorithmic}
+	
+\caption{Algoritmo Metropolis \citep{THEODORIDIS20201}}
+\end{algorithm}
+
 \end{frame}
 
 \begin{frame}{Turing}
@@ -273,105 +784,6 @@ Muestreo de partículas MCMC para distribuciones posteriores complejas que invol
 		\item 
 Inferencia composicional a través del muestreo de Gibbs que combina partículas MCMC, HMC y paseo aleatorio MH (RWMH).
 	\end{itemize}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Algoritmo de Metrópolis }
-
-\begin{itemize}
-	\item Considerando el caso en que se tiene un modelo muestral $Y \sim p(y|\theta)$ y una distribución inicial $p(\theta)$.
-	\item La distribución final es difil de calcular por la integral en el denominador:
-		 \begin{equation}
-		 	p(\theta | y) =  \dfrac{p(\theta)p(y | \theta)}{\int p(\theta{'}) p(y|\theta{'})d\theta{'}}
-		 \end{equation}
-	\item Si se pudiera obtener muestras de $p(\theta|y)$, se podría generar $\theta^{(1)},\theta^{(2)}, \hdots, \theta^{(S)} \sim \text{i.i.d}. p(\theta | y)$ y obtener aproximaciones con el método de Monte Carlo.
-	\item El problema es cuando no se pueden obtener muestras directamente de $p(\theta | y)$.
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\begin{itemize}
-		\item En términos de aproximar la distribución posterior, lo crítico no es tener muestras i.i.d. de $p(\theta |y)$ sino que poder construir una gran colección de valores de $\theta$, cuya distribución empírica aproxime $p(\theta | y)$
-		\item Suponiendo que se cuenta con una colección $\lbrace \theta^{(1)},\theta^{(2)}, \hdots, \theta^{(s)}\rbrace$ a la cual queremos agregar un valor nuevo $\theta^{s+1}$.
-		\item Se considera agregar un valor $\theta^{*}$ que es cercano a $\theta^{s}$.
-		\item \textbf{¿Qué regla de decisión utilizamos?}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\begin{itemize}
-				\item Si $p(\theta^{*}|y) > p(\theta^{(s)}|y)$, se prefieren más valores de $\theta^{*}$ en el conjunto que los valores de $\theta^{(s)}$.
-				\item Dado que $\theta^{(s)}$ ya está en el conjunto, entonces parece que deberíamos incluir también a $\theta^{*}$.
-		\item En el caso contrario, si $p(\theta^{*}|y) < p(\theta^{(s)}|y)$ no es necesario incluir $\theta^{*}$.
-		\item Así, parece que la decisión de incluir o no a $\theta^{*}$ depende de la comparación entre $p(\theta^{*}|y)$ y $p(\theta^{(s)}|y)$. 
-		\item Afortunadamente, esta comparación se puede hacer incluso si no podemos calcular $p(\theta | y)$
-	\end{itemize}
-	\begin{equation}
-	r = \dfrac{p(\theta^{*} | y)}{p(\theta^{(s)} | y)} = \dfrac{p(y | \theta^{*}) p(\theta^{*})}{p(y)} \dfrac{p(y)}{p(y | \theta^{(s)})p(\theta^{(s)})} = \dfrac{p(y | \theta^{*}) p(\theta^{*})}{p(y | \theta^{(s)})p(\theta^{(s)})}
-	\end{equation}
-\end{frame}
-
-\begin{frame}
-Habiendo calculado $r$, ¿qué tenemos que hacer?
-
-	\begin{itemize}
-		\item Si $r >1$:
-			\begin{itemize}
-				\item \textbf{Intuición}: Dado que $\theta^{(s)}$ ya está en el conjunto, debemos incluir a $\theta^{*}$ ya que tiene una probabilidad mayor que $\theta^{(s)}$.
-				\item \textbf{Decisión}: Aceptar $\theta^{*}$ en nuestro conjunto, \textit{i.e.} definir $\theta^{s+1}=\theta^{*}$.
-			\end{itemize}
-		\item Si $r < 1$:
-			\begin{itemize}
-				\item \textbf{Intuición}: La frecuencia relativa de valores $\theta$ en el conjunto que es igual a $\theta^{*}$, comparado con aquellos valores iguales a $\theta^{(s)}$ está dada por la expresión $\dfrac{p(\theta^{*} | y)}{p(\theta^{(s)}|y)} = r$. Esto significa que por cada instancia de $\theta^{(s)}$, deberíamos tener sólo una fracción de valores $\theta^{*}$.
-				\item \textbf{Decisión}:  Definir $\theta^{s+1}$ igual a $\theta^{*}$ o $\theta^{(s)}$ con probabilidad $r$ y $1-r$ respectivamente.  
-			\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Algoritmo Metropolis} 
-	\begin{itemize}
-		\item Lo anterior es la intuición básica del algoritmo de \textbf{Metropolis}.
-		\item El algoritmo de Metropolis procede al muestrear un valor $\theta^{*}$ cercano al valor actual $\theta^{(s)}$ usando una distribución simétrica  $J(\theta^{*} | \theta^{(s)})$.
-		\item En este contexto, simetría significa que $J(\theta_b | \theta_a) = J(\theta_a | \theta_b)$, \textit{i.e.} la probabilidad de proponer  $\theta^{*} = \theta_b$ dado que $\theta^{(s)}=\theta_a$ es igual a la probabilidad de proponer $\theta^{*} = \theta_a$ dado que $\theta^{(s)}=\theta_b$.
-		\item Algunos ejemplos de $J(\theta^{*} | \theta^{(s)})$ son :
-			\begin{itemize}
-				\item $J(\theta^{*} | \theta^{(s)}) = \text{uniform}(\theta^{(s)}- \delta,\theta^{(s)} + \delta )$
-				\item $J(\theta^{*} | \theta^{(s)}) = \text{normal}(\theta^{(s)},\delta^{2})$
-			\end{itemize}
-		\item El valor del parámetro $\delta$ generalmente se elige para hacer que el algoritmo se ejecute de manera eficiente.
-	\end{itemize} 
-\end{frame}
-
-\begin{frame}
-	\begin{itemize}
-		\item \textbf{Habiendo obtenido un valor propuesto} $\theta^{*}$ \textbf{se añade al conjunto este valor o a una copia de } $\theta^{(s)}$ \textbf{, dependiendo de la proporción } $ r = \dfrac{p(\theta^{*} | y)}{p(\theta^{(s)}|y)}$
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-De forma específica, dado $\theta^{(s)}$, el algoritmo Metropolis genera un valor $\theta^{(s+1)}$ de la siguiente forma:
-
-	\begin{enumerate}
-		\item Tomar una muestra $\theta^{*} \sim J(\theta | \theta^{(s)})$
-		\item Calcular la proporción de aceptación
-			\begin{equation*}
-					r = \dfrac{p(\theta^{*} | y)}{p(\theta^{(s)} | y)} = \dfrac{p(y | \theta^{*}) p(\theta^{*})}{p(y | \theta^{(s)})p(\theta^{(s)})}
-			\end{equation*}
-		\item Sea
-		\begin{equation}
-		  \theta^{(s+1)} =
-    		\begin{cases}
-      			\theta^{*} \qquad \text{con probabilidad $\min(r,1)$}\\
-  	  			\theta^{(s)} \qquad \text{con probabilidad $1- \min(r,1)$}
-    		\end{cases}       
-		\end{equation}
-
-	\end{enumerate}
-	
-	El paso 3 se puede obtener al tomar una muestra $u \sim \text{uniform}(0,1)$ y definir $\theta^{s+1}= \theta^{*}$ si $u < r$ y $\theta^{s+1}= \theta^{\theta^{(s)}}$ en otro caso. 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -396,4 +808,12 @@ De forma específica, dado $\theta^{(s)}$, el algoritmo Metropolis genera un val
 		\includegraphics[scale=0.35]{images/chain_resultados.pdf}
 	\end{figure}
 \end{frame}
+
+\begin{frame}[allowframebreaks]
+        \frametitle{References}
+		\bibliographystyle{apalike}
+
+       \bibliography{turing_ode.bib}
+\end{frame}
+
 \end{document}
